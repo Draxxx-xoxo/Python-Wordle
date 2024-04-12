@@ -6,19 +6,24 @@ import random
 print("WELCOME TO WORDLE")
 print("This is a game of WORDLE")
 
-game_mode = input("Choose Single(0) or Multiplayer(1): ")
+game_mode = input("Choose Single (0) or Multiplayer (1): ")
 
 
 if game_mode == "0":
     print("You are playing in single player mode")
 elif game_mode == "1":
     print("You are playing in multiplayer player mode")
+
     user_player_1 = input("Enter username of Player 1: ")
     user_player_2 = input("Enter username of Player 2: ")
+
     players = [user_player_1, user_player_2]
     players_id = [None, None]
+
     print("CALCUALTING LUCK.....")
+
     random_player = random.choice(players)
+
     print(f"{random_player} goes first")
 
     if random_player == user_player_1:
@@ -39,6 +44,9 @@ while not check_length:
         length = int(input("Please enter a length greater than 5: "))
     else:
         check_length = True
+
+if game_mode == 1:
+    length = length * 2
 
 # Function to randomise a word 
 def random_word():
@@ -66,15 +74,20 @@ word_list = random_word()
 print(word_list) # this would not be in the actual game, its just for testing
 total_results = []
 tries = 0
+player_turn = 0
 
 correct_length_lis = []
 
 for i in range(length):
-    correct_length_lis.append("🟩" )
+    correct_length_lis.append("🟩")
 
 # Run while loop until the player guess or they ran out of tries
 while not correct and tries < length :
-    letters = (input("Please enter five letters: ")).lower()    
+    if game_mode == "0":
+        letters = (input("Please enter five letters: ")).lower() 
+    elif game_mode == "1":
+        letters = input(f"{players[players_id[players_id.index(players_id.index(player_turn))]]} please enter five letters: ").lower()
+
 
     # Check if the word is real and if the length is of letter is the equal
     if check_real_word(letters) == False:
@@ -83,9 +96,18 @@ while not correct and tries < length :
     elif len(letters) != length:
         print(f"Please enter {length} letters")
         continue
+    elif letters.isalpha() == False:
+        print("Please enter a word")
+        continue
+
+    if game_mode == "1":
+        if player_turn == 0:
+            player_turn += 1
+        elif player_turn == 1:
+            player_turn -= 1
 
     letter_place = 0
-    results= []
+    results = []
     print(letters)
 
     # Loop through to check for the letters
@@ -98,23 +120,36 @@ while not correct and tries < length :
             results.append("⬜")
         letter_place += 1
 
+    print(" ".join(results))
     tries += 1
     total_results.append(results)
     
     if results == correct_length_lis:
         correct = True
         print("Correct")
-        print(" ".join(results))
+
 
 
 #Output the results
 print("--------------------------------")
 print("ALL RESULTS")
 print("--------------------------------")
-for row in total_results:
-    print(" ".join(row))
-    print("--------------------------------")
+if game_mode == "0":
+    for row in total_results:
+        print(" ".join(row))
+        print("--------------------------------")
+        
+elif game_mode == "1":
+    print(f"{players[players_id[players_id.index(players_id.index(0))]]}'s turn")
 
+    for i in range(0, len(total_results), 2):
+        print(" ".join(total_results[i]))
+
+    print("--------------------------------")
+    print(f"{players[players_id[players_id.index(players_id.index(1))]]}'s turn")
+
+    for i in  range(1, len(total_results), 2):
+        print(" ".join(total_results[i]))
 
 
 
