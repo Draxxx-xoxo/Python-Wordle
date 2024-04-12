@@ -45,9 +45,6 @@ while not check_length:
     else:
         check_length = True
 
-if game_mode == 1:
-    length = length * 2
-
 # Function to randomise a word 
 def random_word():
     r = RandomWord()
@@ -69,6 +66,9 @@ def check_real_word(word):
 
 # Get user input of the 5 letters
 
+if game_mode == "1":
+    game_rounds = length * 2
+
 correct = False
 word_list = random_word() 
 print(word_list) # this would not be in the actual game, its just for testing
@@ -82,7 +82,7 @@ for i in range(length):
     correct_length_lis.append("🟩")
 
 # Run while loop until the player guess or they ran out of tries
-while not correct and tries < length :
+while not correct and tries < game_rounds :
     if game_mode == "0":
         letters = (input("Please enter five letters: ")).lower() 
     elif game_mode == "1":
@@ -152,7 +152,16 @@ elif game_mode == "1":
         print(" ".join(total_results[i]))
 
 
+with open("scores/multiplayer.txt", "a") as file:
+    results_1 = []
+    results_2 = []
+    for i in  range(1, len(total_results), 2):
+        results_1.append(f'{" ".join(total_results[i])} \n')
 
+    for i in range(0, len(total_results), 2):
+        results_2.append(f'{" ".join(total_results[i])} \n')
+
+    file.writelines("-------------------------------- \n" + "ALL RESULTS \n" + "-------------------------------- \n" + f"{players[players_id[players_id.index(players_id.index(0))]]}'s turn \n" + "".join(results_1) + f"{players[players_id[players_id.index(players_id.index(1))]]}'s turn \n" + "".join(results_2))
             
 # 🟨 🟩 ⬜        
 
