@@ -3,6 +3,11 @@ Wordle Game in Python
 
 ---
 
+## Installation of Libaries
+[RandomWord](https://pypi.org/project/Random-Word/)  `pip install random-word`
+
+[Wordnet](https://www.nltk.org/install.html)
+
 ## Setup
 - Choose between single player and multiplayer mode.
 - Choose the number of letters you wish to have in your word.
