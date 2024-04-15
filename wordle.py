@@ -1,6 +1,7 @@
 from wonderwords import RandomWord
 from nltk.corpus import wordnet
 import random 
+import time
 
 # Welcome message
 print("WELCOME TO WORDLE")
@@ -11,6 +12,7 @@ game_mode = input("Choose Single (0) or Multiplayer (1): ")
 
 if game_mode == "0":
     print("You are playing in single player mode")
+    user_player_1 = input("Enter username: ")
 elif game_mode == "1":
     print("You are playing in multiplayer player mode")
 
@@ -68,6 +70,8 @@ def check_real_word(word):
 
 if game_mode == "1":
     game_rounds = length * 2
+else: 
+    game_rounds = length
 
 correct = False
 word_list = random_word() 
@@ -135,34 +139,36 @@ print("--------------------------------")
 print("ALL RESULTS")
 print("--------------------------------")
 if game_mode == "0":
+    results_1 = []
+
     for row in total_results:
         print(" ".join(row))
-        print("--------------------------------")
+        results_1.append(f'{" ".join(row)} \n')
+
+    with open(f"scores/{user_player_1}.txt", "a") as file:
+        file.writelines("-------------------------------- \n" + "ALL RESULTS \n" + "-------------------------------- \n" + "".join(results_1))
         
 elif game_mode == "1":
+    results_1 = []
+    results_2 = []
+
     print(f"{players[players_id[players_id.index(players_id.index(0))]]}'s turn")
 
     for i in range(0, len(total_results), 2):
         print(" ".join(total_results[i]))
+        results_2.append(f'{" ".join(total_results[i])} \n')
 
     print("--------------------------------")
     print(f"{players[players_id[players_id.index(players_id.index(1))]]}'s turn")
 
     for i in  range(1, len(total_results), 2):
         print(" ".join(total_results[i]))
-
-
-with open("scores/multiplayer.txt", "a") as file:
-    results_1 = []
-    results_2 = []
-    for i in  range(1, len(total_results), 2):
         results_1.append(f'{" ".join(total_results[i])} \n')
 
-    for i in range(0, len(total_results), 2):
-        results_2.append(f'{" ".join(total_results[i])} \n')
+    with open(f"scores/{user_player_1}_{user_player_2}.txt", "a") as file:
 
-    file.writelines("-------------------------------- \n" + "ALL RESULTS \n" + "-------------------------------- \n" + f"{players[players_id[players_id.index(players_id.index(0))]]}'s turn \n" + "".join(results_1) + f"{players[players_id[players_id.index(players_id.index(1))]]}'s turn \n" + "".join(results_2))
-            
+        file.writelines("-------------------------------- \n" + "ALL RESULTS \n" + "-------------------------------- \n" + f"{players[players_id[players_id.index(players_id.index(0))]]}'s turn \n" + "".join(results_1) + f"{players[players_id[players_id.index(players_id.index(1))]]}'s turn \n" + "".join(results_2))
+                
 # 🟨 🟩 ⬜        
 
         
