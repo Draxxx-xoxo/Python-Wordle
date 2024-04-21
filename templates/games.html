@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle Game</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
+</head>
+<body>
+    <h1>Wordle Game</h1>
+    <div id="wordle-container">
+        <div id="word-display"></div>
+        <input type="text" id="guess-input" maxlength="5">
+        <button onclick="checkGuess()">Guess</button>
+       <!-- <p id="feedback"></p> -->
+    </div>
+
+
+    <script>
+        const word = {{ word|tojson }}
+    </script>
+
+    <script type=text/javascript src="{{
+        url_for('static', filename='js/script.js')
+      }}"></script>
+</body>
+</html>
