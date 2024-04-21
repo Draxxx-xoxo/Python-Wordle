@@ -1,5 +1,5 @@
 // Define the target word
-const targetWord = "apple";
+const targetWord = word;
 let remainingAttempts = 6;
 
 // Initialize display

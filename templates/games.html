@@ -15,6 +15,11 @@
        <!-- <p id="feedback"></p> -->
     </div>
 
+
+    <script>
+        const word = {{ word|tojson }}
+    </script>
+
     <script type=text/javascript src="{{
         url_for('static', filename='js/script.js')
       }}"></script>
