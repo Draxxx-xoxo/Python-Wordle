@@ -27,8 +27,11 @@ function checkGuess() {
             feedback += "-";
         }
     }
+    
+    const feedbackParagraph = document.createElement("p");
+    feedbackParagraph.textContent = feedback;
+    document.getElementById("wordle-container").appendChild(feedbackParagraph);
 
-    document.getElementById("feedback").textContent = feedback;
 
     if (feedback === "OOOOO") {
         alert("Congratulations! You've guessed the word!");
